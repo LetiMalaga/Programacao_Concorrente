@@ -14,7 +14,8 @@ public class Receptionista implements Runnable {
         Random random = new Random();
         try {
             while (true) {
-                Thread.sleep(random.nextInt(5000)); // Random service time
+                // Tempo de serviço randômico
+                Thread.sleep(random.nextInt(5000));
                 synchronized (hotel.getRecepcaoLock()) {
                     Quarto quarto = hotel.getQuartoDisponivel();
                     if (quarto != null) {
