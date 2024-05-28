@@ -1,0 +1,49 @@
+package AT2N2;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+public class ClienteSocket {
+
+    public static void main(String[] args) {
+        // Define informações do servidor
+        String ipServidor = "10.130.129.103";  // IP do servidor fornecido pelo professor
+        int portaServidor = 12345;  // Porta do servidor fornecida pelo professor
+
+        try {
+            // Conecta ao servidor fornecido pelo professor
+            Socket clienteSocket = new Socket(InetAddress.getByName(ipServidor), portaServidor);
+            System.out.println("Conectado ao servidor");
+
+            // Cria streams para comunicação
+            InputStream inputStream = clienteSocket.getInputStream();
+            OutputStream outputStream = clienteSocket.getOutputStream();
+
+            // Envia uma mensagem para o servidor e converte para Bytes
+            String mensagemServidor = "MTk5MA=="; // Mensagem personalizada baseada no aluno fornecida pelo professor
+            outputStream.write(mensagemServidor.getBytes());
+            System.out.println("Messagem enviada ao servidor: " + mensagemServidor);
+
+            // Recebe a resposta do servidor e converte para string
+            byte[] buffer = new byte[1024];
+            int bytesLidos = inputStream.read(buffer);
+            String respostaServidor = new String(buffer, 0, bytesLidos);
+            System.out.println("Resposta do servidor: " + respostaServidor);
+
+            // Fecha os streams e o socket
+            inputStream.close();
+            outputStream.close();
+            clienteSocket.close();
+            System.out.println("Conexão fechada");
+
+        } catch (UnknownHostException e) {
+            System.err.println("Servidor não encontrado: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("I/O error: " + e.getMessage());
+        }
+    }
+}
