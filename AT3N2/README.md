@@ -1,16 +1,69 @@
-Crie um projeto (em Java 17) para representar um servidor utilizando sockets. O servidor terá a função de controlar um registro/cadastro de livros de uma biblioteca, sendo capaz de executar as seguintes funcionalidades: 
-● Listagem dos livros; 
-● Aluguel e devolução de livros; 
-● Cadastro de livros. 
+# Biblioteca Socket Server
 
-Os livros devem ser representados por uma classe, que deve conter no mínimo os seguintes atributos: 
-● Autor; 
-● Nome; 
-● Gênero; 
-● Número de exemplares. 
+Este projeto implementa um servidor de biblioteca utilizando sockets em Java, que permite gerenciar um registro de livros, realizando operações de listagem, cadastro, aluguel e devolução de livros. O servidor e o cliente se comunicam por meio de sockets e os dados são armazenados em um arquivo JSON.
 
-Os livros deverão ficar armazenados em um arquivo JSON (divulgado previamente pelo professor), que terá 10 livros inicialmente. As alterações aplicadas pelo usuário (cadastro e aluguel) devem refletir no arquivo, pois o mesmo representará uma “base de dados” da biblioteca. 
+## Funcionalidades
 
-As operações devem ser realizadas por um cliente socket, que também deve ser implementado pelo grupo. Ou seja, deve haver o envio e recebimento de dados entre o cliente e o servidor. Observações: 
-● O arquivo JSON deverá manter sua estrutura correta (conforme explicado aqui) após a aplicação das operações; 
-● A comunicação entre cliente e servidor deve ser feita obrigatoriamente por meio de sockets
+- **Listagem dos livros**: O cliente pode solicitar ao servidor a listagem de todos os livros disponíveis na biblioteca.
+- **Cadastro de livros**: O cliente pode cadastrar novos livros na biblioteca.
+- **Aluguel de livros**: O cliente pode alugar livros, diminuindo o número de exemplares disponíveis.
+- **Devolução de livros**: O cliente pode devolver livros, aumentando o número de exemplares disponíveis.
+
+## Estrutura do Projeto
+
+### Classe `Livro`
+
+Representa um livro na biblioteca, contendo os seguintes atributos:
+- `autor`: String
+- `nome`: String
+- `genero`: String
+- `numeroExemplares`: int
+
+### Classe `Biblioteca`
+
+Gerencia a coleção de livros da biblioteca e manipula o arquivo JSON que serve como base de dados:
+- `carregarLivros()`: Carrega os livros do arquivo JSON.
+- `salvarLivros()`: Salva os livros no arquivo JSON.
+- `listarLivros()`: Retorna a lista de livros.
+- `cadastrarLivro(Livro livro)`: Adiciona um novo livro à biblioteca.
+- `alugarLivro(String nome)`: Aluga um livro, decrementando o número de exemplares.
+- `devolverLivro(String nome)`: Devolve um livro, incrementando o número de exemplares.
+
+### Classe `ServidorBiblioteca`
+
+Implementa o servidor utilizando sockets:
+- `iniciar()`: Inicia o servidor e aguarda conexões de clientes.
+- `atenderCliente(Socket clientSocket)`: Trata as solicitações dos clientes (listagem, cadastro, aluguel, devolução).
+
+### Classe `ClienteBiblioteca`
+
+Implementa o cliente que se comunica com o servidor:
+- Permite ao usuário enviar comandos para listar, cadastrar, alugar e devolver livros.
+
+## Como Executar
+
+1. Certifique-se de ter o Java 17 instalado.
+2. Compile todas as classes Java.
+3. Inicie o servidor executando a classe `ServidorBiblioteca`.
+4. Em outro terminal, execute a classe `ClienteBiblioteca` para interagir com o servidor.
+
+### Exemplo de Execução
+
+```bash
+# Compile o código
+javac -cp gson-2.8.8.jar:. *.java
+
+# Inicie o servidor
+java -cp gson-2.8.8.jar:. ServidorBiblioteca
+
+# Em outro terminal, inicie o cliente
+java -cp gson-2.8.8.jar:. ClienteBiblioteca
+```
+
+### Arquivo JSON Inicial
+
+O arquivo `livros.json` foi entregue pelo professor.
+
+## Considerações Finais
+
+Este projeto visa exemplificar o uso de sockets para comunicação cliente-servidor em Java, com persistência de dados em um arquivo JSON, seguindo boas práticas de programação e organização de código.
