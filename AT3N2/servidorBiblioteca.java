@@ -7,14 +7,14 @@ import java.util.List;
  * Classe que implementa o servidor da biblioteca utilizando sockets.
  */
 public class ServidorBiblioteca {
-    private static final int PORTA = 12345; // Porta na qual o servidor vai escutar
+    private static final int PORTA = 12345;
     private Biblioteca biblioteca;
 
     /**
      * Construtor da classe ServidorBiblioteca.
      */
     public ServidorBiblioteca() {
-        biblioteca = new Biblioteca(); // Inicializa a biblioteca
+        biblioteca = new Biblioteca();
     }
 
     /**
@@ -26,7 +26,7 @@ public class ServidorBiblioteca {
             while (true) {
                 try (Socket clientSocket = serverSocket.accept()) {
                     System.out.println("Cliente conectado: " + clientSocket.getInetAddress());
-                    atenderCliente(clientSocket); // Trata a conexão com o cliente
+                    atenderCliente(clientSocket);
                 }
             }
         } catch (IOException e) {
@@ -44,24 +44,24 @@ public class ServidorBiblioteca {
             ObjectInputStream entrada = new ObjectInputStream(clientSocket.getInputStream());
             ObjectOutputStream saida = new ObjectOutputStream(clientSocket.getOutputStream())
         ) {
-            String comando = (String) entrada.readObject(); // Lê o comando enviado pelo cliente
+            String comando = (String) entrada.readObject();
             switch (comando) {
                 case "LISTAR":
                     List<Livro> livros = biblioteca.listarLivros();
-                    saida.writeObject(livros); // Envia a lista de livros para o cliente
+                    saida.writeObject(livros);
                     break;
                 case "CADASTRAR":
-                    Livro novoLivro = (Livro) entrada.readObject(); // Lê o novo livro do cliente
+                    Livro novoLivro = (Livro) entrada.readObject();
                     biblioteca.cadastrarLivro(novoLivro);
                     saida.writeObject("Livro cadastrado com sucesso!");
                     break;
                 case "ALUGAR":
-                    String tituloAlugar = (String) entrada.readObject(); // Lê o título do livro a ser alugado
+                    String tituloAlugar = (String) entrada.readObject();
                     boolean sucessoAlugar = biblioteca.alugarLivro(tituloAlugar);
                     saida.writeObject(sucessoAlugar ? "Livro alugado com sucesso!" : "Livro não disponível para aluguel.");
                     break;
                 case "DEVOLVER":
-                    String tituloDevolver = (String) entrada.readObject(); // Lê o título do livro a ser devolvido
+                    String tituloDevolver = (String) entrada.readObject();
                     boolean sucessoDevolver = biblioteca.devolverLivro(tituloDevolver);
                     saida.writeObject(sucessoDevolver ? "Livro devolvido com sucesso!" : "Erro ao devolver o livro.");
                     break;

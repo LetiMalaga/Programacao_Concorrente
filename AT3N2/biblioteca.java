@@ -1,23 +1,26 @@
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONException; // Importe a exceção JSONException
 
 /**
  * Classe que gerencia a biblioteca e a manipulação do arquivo JSON.
  */
 public class Biblioteca {
-    private static final String ARQUIVO_JSON = "livros.json"; // Nome do arquivo JSON
-    private List<Livro> livros; // Lista de livros da biblioteca
+    private static final String ARQUIVO_JSON = "biblioteca.json";
+    private List<Livro> livros;
 
     /**
      * Construtor da classe Biblioteca.
      */
     public Biblioteca() {
-        this.livros = carregarLivros(); // Carrega os livros do arquivo JSON
+        this.livros = carregarLivros();
     }
 
     /**
@@ -26,14 +29,28 @@ public class Biblioteca {
      * @return Lista de livros carregada do arquivo JSON.
      */
     private List<Livro> carregarLivros() {
-        try (FileReader reader = new FileReader(ARQUIVO_JSON)) {
-            Type bibliotecaType = new TypeToken<BibliotecaWrapper>(){}.getType();
-            BibliotecaWrapper wrapper = new Gson().fromJson(reader, bibliotecaType);
-            return wrapper.getLivros(); // Retorna a lista de livros do wrapper
+        List<Livro> livros = new ArrayList<>();
+        try {
+            byte[] bytes = Files.readAllBytes(Paths.get(ARQUIVO_JSON));
+            String content = new String(bytes);
+            JSONObject jsonObject = new JSONObject(content);
+            JSONArray livrosArray = jsonObject.getJSONArray("livros");
+            for (int i = 0; i < livrosArray.length(); i++) {
+                JSONObject livroJson = livrosArray.getJSONObject(i);
+                Livro livro = new Livro(
+                        livroJson.getString("autor"),
+                        livroJson.getString("titulo"),
+                        livroJson.getString("genero"),
+                        livroJson.getInt("exemplares")
+                );
+                livros.add(livro);
+            }
         } catch (IOException e) {
             e.printStackTrace();
-            return null; // Retorna null em caso de erro
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+        return livros;
     }
 
     /**
@@ -41,10 +58,21 @@ public class Biblioteca {
      */
     private void salvarLivros() {
         try (FileWriter writer = new FileWriter(ARQUIVO_JSON)) {
-            BibliotecaWrapper wrapper = new BibliotecaWrapper();
-            wrapper.setLivros(livros);
-            new Gson().toJson(wrapper, writer); // Converte o wrapper para JSON e salva no arquivo
+            JSONObject jsonObject = new JSONObject();
+            JSONArray livrosArray = new JSONArray();
+            for (Livro livro : livros) {
+                JSONObject livroJson = new JSONObject();
+                livroJson.put("autor", livro.getAutor());
+                livroJson.put("titulo", livro.getTitulo());
+                livroJson.put("genero", livro.getGenero());
+                livroJson.put("exemplares", livro.getExemplares());
+                livrosArray.put(livroJson);
+            }
+            jsonObject.put("livros", livrosArray);
+            writer.write(jsonObject.toString(4)); // Escreve no arquivo com indentação
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
@@ -65,7 +93,7 @@ public class Biblioteca {
      */
     public void cadastrarLivro(Livro livro) {
         livros.add(livro);
-        salvarLivros(); // Salva a lista de livros atualizada no arquivo JSON
+        salvarLivros();
     }
 
     /**
@@ -78,7 +106,7 @@ public class Biblioteca {
         for (Livro livro : livros) {
             if (livro.getTitulo().equalsIgnoreCase(titulo) && livro.getExemplares() > 0) {
                 livro.setExemplares(livro.getExemplares() - 1);
-                salvarLivros(); // Salva a lista de livros atualizada no arquivo JSON
+                salvarLivros();
                 return true;
             }
         }
@@ -95,25 +123,10 @@ public class Biblioteca {
         for (Livro livro : livros) {
             if (livro.getTitulo().equalsIgnoreCase(titulo)) {
                 livro.setExemplares(livro.getExemplares() + 1);
-                salvarLivros(); // Salva a lista de livros atualizada no arquivo JSON
+                salvarLivros();
                 return true;
             }
         }
         return false;
-    }
-
-    /**
-     * Classe interna para encapsular a lista de livros no arquivo JSON.
-     */
-    private static class BibliotecaWrapper {
-        private List<Livro> livros;
-
-        public List<Livro> getLivros() {
-            return livros;
-        }
-
-        public void setLivros(List<Livro> livros) {
-            this.livros = livros;
-        }
     }
 }
