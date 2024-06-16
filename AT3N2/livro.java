@@ -1,11 +1,22 @@
 import java.io.Serializable;
 
+/**
+ * Classe que representa um Livro na biblioteca.
+ */
 public class Livro implements Serializable {
     private String autor;
     private String titulo;
     private String genero;
     private int exemplares;
 
+    /**
+     * Construtor da classe Livro.
+     *
+     * @param autor       Autor do livro.
+     * @param titulo      Título do livro.
+     * @param genero      Gênero do livro.
+     * @param exemplares  Número de exemplares disponíveis.
+     */
     public Livro(String autor, String titulo, String genero, int exemplares) {
         this.autor = autor;
         this.titulo = titulo;
