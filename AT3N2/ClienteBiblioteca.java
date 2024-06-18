@@ -1,11 +1,11 @@
-import java.io.*;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Classe que implementa o cliente da biblioteca que se comunica com o servidor.
- */
+// Classe que implementa o cliente da biblioteca que se comunica com o servidor.
 public class ClienteBiblioteca {
     private static final String HOST = "localhost";
     private static final int PORTA = 12345;
