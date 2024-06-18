@@ -1,64 +1,80 @@
-{
-  "livros": [
+{"livros": [
     {
-      "titulo": "Meditações",
-      "autor": "Marco Aurélio",
-      "genero": "Filosofia",
-			"exemplares": 4
+        "genero": "Filosofia",
+        "titulo": "Meditações",
+        "exemplares": 4,
+        "autor": "Marco Aurélio"
     },
     {
-      "titulo": "Orgulho e Preconceito",
-      "autor": "Jane Austen",
-      "genero": "Romance",
-			"exemplares": 4
+        "genero": "Romance",
+        "titulo": "Orgulho e Preconceito",
+        "exemplares": 4,
+        "autor": "Jane Austen"
     },
     {
-      "titulo": "Nada Pode Me Ferir",
-      "autor": "David Goggins",
-      "genero": "Autoajuda",
-			"exemplares": 2
+        "genero": "Autoajuda",
+        "titulo": "Nada Pode Me Ferir",
+        "exemplares": 2,
+        "autor": "David Goggins"
     },
     {
-      "titulo": "O Homem Invisível",
-      "autor": "H.G. Wells",
-      "genero": "Ficção Científica",
-			"exemplares": 1
+        "genero": "Ficção Científica",
+        "titulo": "O Homem Invisível",
+        "exemplares": 1,
+        "autor": "H.G. Wells"
     },
     {
-      "titulo": "Utopia",
-      "autor": "Thomas More",
-      "genero": "Filosofia",
-			"exemplares": 14
+        "genero": "Filosofia",
+        "titulo": "Utopia",
+        "exemplares": 14,
+        "autor": "Thomas More"
     },
     {
-      "titulo": "A Revolução dos Bichos",
-      "autor": "George Orwell",
-      "genero": "Fábula Política",
-			"exemplares": 1
+        "genero": "Fábula Política",
+        "titulo": "A Revolução dos Bichos",
+        "exemplares": 1,
+        "autor": "George Orwell"
     },
     {
-      "titulo": "As Crônicas de Nárnia",
-      "autor": "C.S. Lewis",
-      "genero": "Fantasia",
-			"exemplares": 8
+        "genero": "Fantasia",
+        "titulo": "As Crônicas de Nárnia",
+        "exemplares": 8,
+        "autor": "C.S. Lewis"
     },
     {
-      "titulo": "Cartas Chilenas",
-      "autor": "Tomás Antônio Gonzaga",
-      "genero": "Sátira",
-			"exemplares": 3
+        "genero": "Sátira",
+        "titulo": "Cartas Chilenas",
+        "exemplares": 3,
+        "autor": "Tomás Antônio Gonzaga"
     },
     {
-      "titulo": "O Príncipe",
-      "autor": "Nicolau Maquiavel",
-      "genero": "Filosofia Política",
-			"exemplares": 1
+        "genero": "Filosofia Política",
+        "titulo": "O Príncipe",
+        "exemplares": 1,
+        "autor": "Nicolau Maquiavel"
     },
     {
-      "titulo": "O Guia do Mochileiro das Galáxias",
-      "autor": "Douglas Adams",
-      "genero": "Ficção Científica",
-			"exemplares": 10
+        "genero": "Ficção Científica",
+        "titulo": "O Guia do Mochileiro das Galáxias",
+        "exemplares": 10,
+        "autor": "Douglas Adams"
+    },
+    {
+        "genero": "A",
+        "titulo": "A",
+        "exemplares": 2,
+        "autor": "A"
+    },
+    {
+        "genero": "b",
+        "titulo": "b",
+        "exemplares": 2,
+        "autor": "b"
+    },
+    {
+        "genero": "fantasia",
+        "titulo": "harry potter e a camara secreta",
+        "exemplares": 2,
+        "autor": "jk rowling"
     }
-  ]
-}
+]}

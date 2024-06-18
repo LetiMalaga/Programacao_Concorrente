@@ -23,12 +23,11 @@ public class ServidorBiblioteca {
     public void iniciar() {
         try (ServerSocket serverSocket = new ServerSocket(PORTA)) {
             System.out.println("Servidor iniciado na porta " + PORTA);
-            while (true) {
                 try (Socket clientSocket = serverSocket.accept()) {
                     System.out.println("Cliente conectado: " + clientSocket.getInetAddress());
                     atenderCliente(clientSocket);
                 }
-            }
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,7 +43,9 @@ public class ServidorBiblioteca {
             ObjectInputStream entrada = new ObjectInputStream(clientSocket.getInputStream());
             ObjectOutputStream saida = new ObjectOutputStream(clientSocket.getOutputStream())
         ) {
+            while(true){
             String comando = (String) entrada.readObject();
+            biblioteca.carregarLivros();
             switch (comando) {
                 case "LISTAR":
                     List<Livro> livros = biblioteca.listarLivros();
@@ -68,6 +69,7 @@ public class ServidorBiblioteca {
                 default:
                     saida.writeObject("Comando desconhecido.");
                     break;
+            }
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

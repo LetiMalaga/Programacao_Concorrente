@@ -28,8 +28,8 @@ public class Biblioteca {
      *
      * @return Lista de livros carregada do arquivo JSON.
      */
-    private List<Livro> carregarLivros() {
-        List<Livro> livros = new ArrayList<>();
+    public List<Livro> carregarLivros() {
+        livros = new ArrayList<>();
         try {
             byte[] bytes = Files.readAllBytes(Paths.get(ARQUIVO_JSON));
             String content = new String(bytes);
