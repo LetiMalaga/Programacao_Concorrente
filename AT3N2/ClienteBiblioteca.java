@@ -5,7 +5,7 @@ import java.net.Socket;
 import java.util.List;
 import java.util.Scanner;
 
-// Classe que implementa o cliente da biblioteca que se comunica com o servidor.
+// Classe que implementa o cliente da biblioteca que se comunica com o servidor.fsw
 public class ClienteBiblioteca {
     private static final String HOST = "localhost";
     private static final int PORTA = 12345;
