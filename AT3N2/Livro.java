@@ -1,4 +1,3 @@
-package biblioteca;
 import java.io.Serializable;
 
 /**
