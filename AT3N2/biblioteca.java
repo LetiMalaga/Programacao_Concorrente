@@ -13,7 +13,7 @@ import org.json.JSONException; // Importe a exceção JSONException
  * Classe que gerencia a biblioteca e a manipulação do arquivo JSON.
  */
 public class Biblioteca {
-    private static final String ARQUIVO_JSON = "biblioteca.json";
+    private static final String ARQUIVO_JSON = "livros.json";
     private List<Livro> livros;
 
     /**
